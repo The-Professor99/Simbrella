@@ -81,7 +81,7 @@ export function Gallery({
             imageSearchParams.set('image', index.toString());
 
             return (
-              <li key={image.src} className="h-20 w-20">
+              <li key={image.src} className="h-12 w-12">
                 <Link
                   aria-label="Enlarge Property image"
                   href={createUrl(pathname, imageSearchParams)}

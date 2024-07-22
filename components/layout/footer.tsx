@@ -1,13 +1,14 @@
-import Logo from '@/components/logo'
-import FooterMenu from './footer-menu'
-import { type HeaderMenu } from '@/lib/types'
+import Logo from '@/components/logo';
+import FooterMenu from './footer-menu';
+import { type HeaderMenu } from '@/lib/types';
+import { routes } from '@/lib/routes';
 
-const { SITE_NAME } = process.env
+const { SITE_NAME } = process.env;
 
 export default async function Footer() {
-  const currentYear = new Date().getFullYear()
-  const copyrightDate = 2024 + (currentYear > 2024 ? `-${currentYear}` : '')
-  const copyrightName = SITE_NAME || ''
+  const currentYear = new Date().getFullYear();
+  const copyrightDate = 2024 + (currentYear > 2024 ? `-${currentYear}` : '');
+  const copyrightName = SITE_NAME || '';
   const menus: HeaderMenu[] = [
     {
       header: 'Mobile',
@@ -31,7 +32,7 @@ export default async function Footer() {
         { title: 'FAQs', path: '#' },
       ],
     },
-  ]
+  ];
 
   return (
     <footer className="divide-y px-4 dark:dark:bg-gray-800 dark:dark:text-gray-100">
@@ -60,7 +61,7 @@ export default async function Footer() {
             <ul className="space-y-1">
               <li>
                 <a
-                  href="#"
+                  href={routes.register.path}
                   className="mb-4 inline-flex w-full items-center justify-center rounded-lg border border-gray-300 bg-blue-500 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 >
                   Register
@@ -68,7 +69,7 @@ export default async function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href={routes.login.path}
                   className="inline-flex w-full items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 >
                   Login
@@ -123,5 +124,5 @@ export default async function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
