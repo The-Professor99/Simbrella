@@ -20,12 +20,6 @@ export default function Properties() {
   const limit = 10;
   const [page, setPage] = useState<number>(1);
   const [resetCount, setResetCount] = useState<number>(1);
-  const filters = [
-    { name: 'postal_code', isArray: false },
-    { name: 'location', isArray: false },
-    { name: 'status', isArray: true },
-    { name: 'type', isArray: true },
-  ];
 
   useEffect(() => {
     setProperties([]);
@@ -36,6 +30,12 @@ export default function Properties() {
       setLoading(true);
       setError(false);
       try {
+        const filters = [
+          { name: 'postal_code', isArray: false },
+          { name: 'location', isArray: false },
+          { name: 'status', isArray: true },
+          { name: 'type', isArray: true },
+        ];
         const filterValues = extractFilterValues(searchParams, filters);
         const newProperties = await getProperties(page, limit, filterValues);
         setProperties((prev) => [...prev, ...newProperties]);

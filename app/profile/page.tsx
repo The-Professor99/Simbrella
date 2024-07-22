@@ -2,7 +2,7 @@ import { signOut } from '@/auth';
 import { SubmitButton } from '@/components/auth/submit-button';
 import { PowerIcon } from '@heroicons/react/24/outline';
 
-export default function () {
+export default async function Profile() {
   return (
     <div className="h-screen flex items-center justify-center">
       <div>
