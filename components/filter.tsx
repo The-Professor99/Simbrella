@@ -9,7 +9,7 @@ import Modal from './modal';
 import { FunnelIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const FilterForm = () => {
+const FilterForm = ({ closeForm }: { closeForm: () => void }) => {
   const statusOptions = [
     { value: 'for_sale', label: 'For Sale' },
     { value: 'for_rent', label: 'For Rent' },
@@ -34,7 +34,7 @@ const FilterForm = () => {
     const formData = new FormData(e.target as HTMLFormElement);
     const newParams = new URLSearchParams(searchParams.toString());
 
-    ['location', 'status', 'type'].forEach((key) => {
+    ['postal_code', 'location', 'status', 'type'].forEach((key) => {
       const value = formData.get(key)?.toString() || '';
       if (value) {
         newParams.set(key, value);
@@ -44,22 +44,32 @@ const FilterForm = () => {
     });
 
     router.push(createUrl(routes.listings.path, newParams));
+    closeForm();
   }
 
   const handleReset = () => {
     const newParams = new URLSearchParams(searchParams.toString());
 
-    ['location', 'status', 'type'].forEach((key) => newParams.delete(key));
+    ['postal_code', 'location', 'status', 'type'].forEach((key) =>
+      newParams.delete(key)
+    );
 
     router.push(createUrl(routes.listings.path, newParams));
+    closeForm();
   };
 
   return (
     <form onSubmit={onSubmit}>
       <FormInputField
+        name="postal_code"
+        label="Postal Code"
+        required
+        placeholder="Enter postal code eg 90004"
+      />
+      <FormInputField
         name="location"
         label="Location"
-        placeholder="Enter postal code or address to look for properties"
+        placeholder="Enter address to look for properties"
       />
       <FormSelectField
         name="status"
@@ -119,7 +129,7 @@ export const Filter = () => {
         </button>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal} title="Filter">
-        <FilterForm />
+        <FilterForm closeForm={closeModal} />
       </Modal>
     </>
   );

@@ -4,7 +4,7 @@ import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default function () {
   return (
-    <div className="h-screen flex items-center">
+    <div className="h-screen flex items-center justify-center">
       <div>
         WIP | Your profile details will appear here
         <form

@@ -38,19 +38,23 @@ export const transformErrors = (errors: ZodIssue[]): ValidationError => {
 
 export const extractFilterValues = (
   searchParams: URLSearchParams,
-  filters: string[]
+  filters: { name: string; isArray: boolean }[]
 ) => {
-  let filterValues: { [key: string]: string } = {};
+  let filterValues: { [key: string]: string | string[] } = {};
 
   filters.forEach((filter) => {
-    const value = searchParams.get(filter);
+    const value = searchParams.get(filter.name);
     if (value) {
-      filterValues[filter] = value;
+      if (filter.isArray) {
+        filterValues[filter.name] = [value];
+      } else {
+        filterValues[filter.name] = value;
+      }
     }
   });
 
   if (!Object.keys(filterValues).length) {
-    filterValues = { status: 'for_sale' };
+    filterValues = { postal_code: '90004' };
   }
 
   return filterValues;

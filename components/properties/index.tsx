@@ -20,7 +20,16 @@ export default function Properties() {
   const limit = 10;
   const [page, setPage] = useState<number>(1);
   const [resetCount, setResetCount] = useState<number>(1);
-  const filters = ['location', 'status', 'type'];
+  const filters = [
+    { name: 'postal_code', isArray: false },
+    { name: 'location', isArray: false },
+    { name: 'status', isArray: true },
+    { name: 'type', isArray: true },
+  ];
+
+  useEffect(() => {
+    setProperties([]);
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -36,7 +45,6 @@ export default function Properties() {
       } finally {
         setLoading(false);
       }
-      console.count('Running...');
     };
     fetchProperties();
   }, [page, resetCount, searchParams]);
@@ -59,7 +67,9 @@ export default function Properties() {
     <>
       {/* Handle Cases when no data is returned */}
       {!loading && !error && !properties.length ? (
-        <div className="h-screen flex items-center">404 | No Data Found.</div>
+        <div className="h-screen flex items-center justify-center">
+          404 | No Data Found.
+        </div>
       ) : null}
 
       {/* display data */}
